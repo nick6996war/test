@@ -1,0 +1,16 @@
+{
+  "name": "testtask",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mykola Kyrychok",
+  "license": "ISC",
+  "dependencies": {
+    "koa2": "^2.0.0-alpha.7",
+    "mysql2": "^2.0.0"
+  },
+  "devDependencies": {},
+  "description": ""
+}
