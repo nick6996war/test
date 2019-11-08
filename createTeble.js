@@ -1,32 +1,43 @@
-var mysql = require('mysql');
+var mysql = require('mysql')
 
-  con = mysql.createConnection({
-    host: "127.0.0.1",
-    user: "root",
-    password: "root",
-    database: "mydb"
-  });
-  con.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-    for (let i = 50000; i <= 1e5; i++) {
+let con = mysql.createConnection({
+	host: "127.0.0.1",
+	user: "root",
+	password: "root",
+})
 
-    let year = Math.floor(Math.random() * 1020) + 1000
-    var sql = "INSERT INTO customers (title, author,description,date,image) VALUES ('title" + i + "', 'author" + i + "', 'description" + i + "','" + year + "', 'image" + i + "')"
-    //var sql = "CREATE TABLE customers (title VARCHAR(35), author VARCHAR(35), description TEXT(35), date VARCHAR(4),image VARCHAR(35) )"
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("1 record inserted");
-    })
-  } })
+let sqlCR = `CREATE TABLE mydb.customers (
+	title VARCHAR(35),
+	author VARCHAR(35),
+	description TEXT(35),
+	date VARCHAR(4),
+	image VARCHAR(35)
+);`
 
-  // con.connect(function(err) {
-  //   if (err) throw err;
-  //   console.log("Connected!");
+con.connect(function (err) {
+	if (err) throw err
+	let liters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	con.query('CREATE DATABASE mydb;', function (err, result) {
+		if (err) throw err
+		console.log("Database created")
+	})
+	con.query(sqlCR, function (err, result) {
+		if (err) throw err
+		console.log("TABLE created")
+	})
+	for (let i = 0; i < 1e5; i++) {
+		//для каждого поля своя переменая для получения даных длясортировки
+		let ltt = liters[Math.floor(Math.random() * 26)]
+		let lta = liters[Math.floor(Math.random() * 26)]
+		let ltd = liters[Math.floor(Math.random() * 26)]
+		let year = Math.floor(Math.random() * 1621) + 400
+		let sql = `INSERT INTO mydb.customers (title, author,description,date,image)
+			VALUES ('${ltt}title', '${lta}author', '${ltd}description','${year}', 'image${i+ltt+ltd+lta}')`
+		con.query(sql, function (err, result) {
+			if (err) throw err
+			console.log(i)
+		})
 
-  //   var sql = "INSERT INTO customers (title, author,description,date,image) VALUES ('title"+i+"', 'author"+i+",' 'description"+i+","+Date+" 'image"+i+"')";
-  //   con.query(sql, function (err, result) {
-  //     if (err) throw err;
-  //     console.log("1 record inserted");
-  //   });
-  // });
+	} console.log("Database filled up")
+
+})

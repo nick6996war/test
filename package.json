@@ -9,8 +9,17 @@
   "license": "ISC",
   "dependencies": {
     "koa2": "^2.0.0-alpha.7",
+    "mysql": "^2.17.1",
     "mysql2": "^2.0.0"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nick6996war/test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nick6996war/test/issues"
+  },
+  "homepage": "https://github.com/nick6996war/test#readme",
   "description": ""
 }
